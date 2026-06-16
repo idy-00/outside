@@ -3,68 +3,65 @@ import { useCart } from '../context/CartContext'
 
 export default function Nav() {
   const { count, openCart } = useCart()
-  const [scrolled, setScrolled] = useState(false)
+  const [hidden, setHidden] = useState(false)
 
   useEffect(() => {
-    const h = () => setScrolled(window.scrollY > 50)
+    let prev = 0
+    const h = () => {
+      const y = window.scrollY
+      setHidden(y > prev && y > 100)
+      prev = y
+    }
     window.addEventListener('scroll', h, { passive: true })
     return () => window.removeEventListener('scroll', h)
   }, [])
 
-  const go = id => { document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }) }
+  const go = id => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 
   return (
-    <header style={{
-      position: 'fixed', inset: '0 0 auto', zIndex: 200,
-      height: 56,
+    <nav style={{
+      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+      height: 'var(--nav)', background: 'var(--white)',
+      borderBottom: '1px solid var(--border)',
       display: 'flex', alignItems: 'center',
       padding: '0 var(--px)',
-      gap: '2rem',
-      background: scrolled ? 'rgba(10,10,10,.97)' : 'transparent',
-      borderBottom: `1px solid ${scrolled ? 'var(--rule)' : 'transparent'}`,
-      transition: 'background .3s, border-color .3s',
+      transform: hidden ? 'translateY(-100%)' : 'none',
+      transition: 'transform .3s ease',
     }}>
-
       <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} style={{
-        background: 'none', border: 'none', color: 'var(--paper)',
-        fontFamily: 'Outfit', fontWeight: 900, fontSize: '1rem',
-        letterSpacing: '.2em', padding: 0, marginRight: 'auto',
+        background: 'none', border: 'none', padding: 0,
+        fontFamily: 'Anton, sans-serif', fontSize: '1.2rem',
+        letterSpacing: '.02em', color: 'var(--black)', marginRight: 'auto',
       }}>
-        OUTSIDE
+        OUTSIDE™
       </button>
 
-      <nav style={{ display: 'flex', gap: '1.8rem' }}>
-        {[['shop','Shop'],['lookbook','Lookbook'],['order','Commander']].map(([id, label]) => (
+      <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+        {[['shop','Shop'],['lookbook','Lookbook'],['order','Commander']].map(([id, lbl]) => (
           <button key={id} onClick={() => go(id)} style={{
-            background: 'none', border: 'none', color: 'var(--paper)',
-            fontFamily: 'DM Mono, monospace', fontSize: '.6rem',
-            letterSpacing: '.15em', padding: 0, opacity: .5,
-            transition: 'opacity .15s',
+            background: 'none', border: 'none', padding: 0,
+            fontFamily: 'Hanken Grotesk, sans-serif', fontWeight: 400,
+            fontSize: '14px', color: 'var(--grey)',
+            transition: 'color .15s',
           }}
-          onMouseEnter={e => e.currentTarget.style.opacity = 1}
-          onMouseLeave={e => e.currentTarget.style.opacity = .5}>
-            {label}
+          onMouseEnter={e => e.currentTarget.style.color = 'var(--black)'}
+          onMouseLeave={e => e.currentTarget.style.color = 'var(--grey)'}>
+            {lbl}
           </button>
         ))}
-      </nav>
 
-      <button onClick={openCart} style={{
-        background: 'none', border: '1px solid rgba(243,237,229,.2)',
-        color: 'var(--paper)', fontFamily: 'DM Mono, monospace',
-        fontSize: '.6rem', letterSpacing: '.12em',
-        padding: '.35rem .9rem', display: 'flex',
-        alignItems: 'center', gap: '.45rem',
-        transition: 'border-color .15s',
-      }}
-      onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(243,237,229,.7)'}
-      onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(243,237,229,.2)'}>
-        Panier {count > 0 && <span style={{
-          background: 'var(--paper)', color: 'var(--ink)',
-          width: 16, height: 16, borderRadius: '50%',
-          fontSize: 9, fontWeight: 700, display: 'flex',
-          alignItems: 'center', justifyContent: 'center',
-        }}>{count}</span>}
-      </button>
-    </header>
+        <button onClick={openCart} style={{
+          background: 'none', border: '1px solid var(--border)',
+          color: 'var(--black)', fontFamily: 'Hanken Grotesk, sans-serif',
+          fontWeight: 400, fontSize: '14px',
+          padding: '.3rem .9rem',
+          transition: 'border-color .15s',
+        }}
+        onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--black)'}
+        onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}>
+          Panier{count > 0 ? ` (${count})` : ''}
+        </button>
+      </div>
+    </nav>
   )
 }

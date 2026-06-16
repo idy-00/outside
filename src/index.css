@@ -1,27 +1,27 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --ink:   #0a0a0a;
-  --paper: #f3ede5;
-  --warm:  #e8e0d4;
-  --rule:  #222;
-  --mute:  #666;
-  --wa:    #128C7E;
-  --px: 2rem;
+  --black:  #0d0d0d;
+  --white:  #faf8f5;   /* blanc chaud cassé, pas clinique */
+  --grey:   #888;
+  --border: rgba(0,0,0,.12);
+  --wa:     #128C7E;
+  --px:     clamp(1.25rem, 5vw, 4rem);
+  --nav:    68px;
 }
-
-@media (max-width: 640px) { :root { --px: 1.2rem; } }
 
 html { font-size: 16px; scroll-behavior: smooth; }
 
 body {
-  background: var(--ink);
-  color: var(--paper);
-  font-family: 'Outfit', sans-serif;
-  font-weight: 300;
+  background: var(--white);
+  color: var(--black);
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
+::selection { background: var(--black); color: var(--white); }
 ::-webkit-scrollbar { width: 0; }
 img { display: block; max-width: 100%; }
+button { cursor: pointer; }

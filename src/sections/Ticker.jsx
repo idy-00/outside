@@ -1,20 +1,24 @@
-const WORDS = ['OUTSIDE™', '·', 'BLAME YOUR SELF NOT THE WORLD', '·', 'DAKAR', '·', 'STREETWEAR', '·', 'SS 2025', '·']
+const WORDS = ['OUTSIDE™', '—', 'BLAME YOUR SELF NOT THE WORLD', '—', 'DAKAR', '—', 'SS 2025', '—', 'STREETWEAR', '—']
 const BAND  = [...WORDS, ...WORDS, ...WORDS, ...WORDS]
 
 export default function Ticker() {
   return (
     <>
-      <style>{`@keyframes tk{to{transform:translateX(-50%)}}`}</style>
-      <div style={{ background: 'var(--paper)', overflow: 'hidden', borderTop: '1px solid var(--warm)', borderBottom: '1px solid var(--warm)' }}>
+      <style>{`@keyframes tk{from{transform:translateX(0)}to{transform:translateX(-25%)}}`}</style>
+      <div style={{
+        overflow: 'hidden', background: '#000',
+        borderTop: '1px solid #222', borderBottom: '1px solid #222',
+        padding: '.75rem 0',
+      }}>
         <div style={{
-          display: 'flex', gap: '2rem', padding: '.65rem 0',
-          whiteSpace: 'nowrap', width: 'max-content',
-          animation: 'tk 30s linear infinite',
+          display: 'flex', gap: '2rem', whiteSpace: 'nowrap',
+          width: 'max-content', animation: 'tk 30s linear infinite',
         }}>
           {BAND.map((w, i) => (
             <span key={i} style={{
-              fontFamily: 'DM Mono', fontSize: '.68rem',
-              letterSpacing: '.2em', color: 'var(--ink)', flexShrink: 0,
+              fontFamily: 'JetBrains Mono, monospace', fontSize: '11px',
+              letterSpacing: '.15em', textTransform: 'uppercase', flexShrink: 0,
+              color: w === '—' ? 'rgba(255,255,255,.2)' : 'rgba(255,255,255,.7)',
             }}>{w}</span>
           ))}
         </div>

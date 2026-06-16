@@ -3,61 +3,76 @@ import { useRef, useEffect, useState } from 'react'
 export default function Editorial() {
   const ref = useRef(null)
   const [vis, setVis] = useState(false)
-
   useEffect(() => {
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVis(true) }, { threshold: .15 })
-    if (ref.current) obs.observe(ref.current)
-    return () => obs.disconnect()
+    const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVis(true) }, { threshold: .08 })
+    if (ref.current) o.observe(ref.current)
+    return () => o.disconnect()
   }, [])
 
   return (
     <section ref={ref} style={{
-      background:'var(--white)', color:'var(--black)',
-      display:'grid', gridTemplateColumns:'1fr 1fr',
-      minHeight:'70vh',
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+      borderTop: '1px solid var(--border)',
     }}>
-      {/* left — full image */}
-      <div style={{ overflow:'hidden', position:'relative' }}>
-        <img src="/images/look4.jpg" alt="Outside editorial"
+      {/* text — fond noir */}
+      <div style={{
+        background: 'var(--black)', color: 'var(--white)',
+        padding: 'clamp(3rem, 7vw, 6rem) var(--px)',
+        display: 'flex', flexDirection: 'column', justifyContent: 'center',
+        opacity: vis ? 1 : 0, transform: vis ? 'none' : 'translateY(20px)',
+        transition: 'opacity .6s, transform .6s',
+      }}>
+        <p style={{
+          fontFamily: 'Hanken Grotesk, sans-serif', fontWeight: 300,
+          fontSize: '11px', letterSpacing: '.2em', textTransform: 'uppercase',
+          color: 'rgba(255,255,255,.3)', marginBottom: '2rem',
+        }}>Éditorial 01</p>
+
+        <h2 style={{
+          fontFamily: 'Anton, sans-serif',
+          fontSize: 'clamp(2.2rem, 5.5vw, 4rem)',
+          lineHeight: .9, textTransform: 'uppercase',
+          letterSpacing: '-.01em', marginBottom: '1.8rem',
+        }}>
+          Étude des<br />Voids.
+        </h2>
+
+        <p style={{
+          fontFamily: 'Hanken Grotesk, sans-serif', fontWeight: 300,
+          fontSize: '15px', lineHeight: 1.8,
+          color: 'rgba(255,255,255,.5)', maxWidth: '36ch', marginBottom: '2.5rem',
+        }}>
+          L'espace négatif n'est pas vide, il est structurel.
+          Nos silhouettes sont définies autant par ce qu'elles
+          englobent que par ce qu'elles excluent.
+        </p>
+
+        <button onClick={() => document.getElementById('lookbook')?.scrollIntoView({ behavior: 'smooth' })}
           style={{
-            width:'100%', height:'100%', objectFit:'cover', objectPosition:'top',
-            display:'block',
-            transform: vis ? 'scale(1)' : 'scale(1.06)',
-            transition:'transform .9s cubic-bezier(.16,1,.3,1)',
-          }} />
+            alignSelf: 'flex-start', background: 'none', border: 'none', padding: 0,
+            fontFamily: 'Hanken Grotesk, sans-serif', fontWeight: 400, fontSize: '13px',
+            letterSpacing: '.06em', color: 'rgba(255,255,255,.6)',
+            borderBottom: '1px solid rgba(255,255,255,.2)', paddingBottom: 3,
+            transition: 'color .2s, border-color .2s',
+          }}
+          onMouseEnter={e => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = '#fff' }}
+          onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,.6)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,.2)' }}>
+          Explorer la campagne →
+        </button>
       </div>
 
-      {/* right — text */}
-      <div ref={ref} style={{
-        padding:'5rem 3.5rem',
-        display:'flex', flexDirection:'column', justifyContent:'center',
-        opacity: vis?1:0, transform: vis?'none':'translateX(24px)',
-        transition:'opacity .7s .2s, transform .7s .2s',
+      {/* image */}
+      <div style={{
+        overflow: 'hidden', minHeight: 480, background: '#111',
+        opacity: vis ? 1 : 0, transform: vis ? 'none' : 'translateY(20px)',
+        transition: 'opacity .6s .15s, transform .6s .15s',
       }}>
-        <p style={{ fontSize:'.55rem', letterSpacing:'.35em', textTransform:'uppercase', opacity:.35, marginBottom:'1.8rem' }}>
-          — LA MARQUE
-        </p>
-        <h2 style={{
-          fontFamily:'Barlow Condensed', fontWeight:900,
-          fontSize:'clamp(3rem, 7vw, 7rem)',
-          lineHeight:.82, letterSpacing:'-.01em',
-          marginBottom:'2rem',
-        }}>
-          NÉ DANS<br />LES RUES.
-        </h2>
-        <p style={{
-          fontSize:'.85rem', lineHeight:2, opacity:.5,
-          maxWidth:'36ch', marginBottom:'2.5rem',
-        }}>
-          OUTSIDE est une marque née à Dakar. Pas dans un bureau, pas dans une réunion. Dans les rues. Portée par une génération qui prend sa vie en main et refuse les excuses.
-        </p>
-        <p style={{
-          fontFamily:'Barlow Condensed', fontStyle:'italic', fontWeight:700,
-          fontSize:'1.1rem', letterSpacing:'.04em', opacity:.3,
-          borderLeft:'2px solid rgba(8,8,8,.2)', paddingLeft:'1rem',
-        }}>
-          "Blame Your Self Not The World"
-        </p>
+        <img src="/images/look11.jpg" alt="" style={{
+          width: '100%', height: '100%', minHeight: 480,
+          objectFit: 'cover', objectPosition: 'center',
+          filter: 'grayscale(1) contrast(1.15)',
+        }} />
       </div>
     </section>
   )
