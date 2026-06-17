@@ -12,6 +12,9 @@ export const WA_NUMBER = '221785273187'
 // ── JOGGING SHERPA : ensemble sherpa logo brodé
 // prod11=noir, prod12=blanc
 
+// ── JOGGING OUTSIDE (coton) : sérigraphie verticale jambe + badge aigle cuisse
+// prod26=blanc, prod27=noir, prod28=bleu canard
+
 // ── HOODIE classique : aigle badge dos + "OUTSIDE™" poitrine
 // prod13=noir (recto/verso), prod14=blanc (recto/verso) ← images double vue
 // prod2=hoodie noir (ancienne), prod6=hoodie blanc (ancienne)
@@ -28,6 +31,20 @@ export const PRODUCTS = [
     colors: [
       { label: 'Noir',  hex: '#111',    img: '/images/prod11.jpg' },
       { label: 'Blanc', hex: '#f0ebe3', img: '/images/prod12.jpg', light: true },
+    ],
+  },
+  // ─── JOGGING OUTSIDE (coton) ───
+  {
+    id: 'jogging-outside',
+    name: 'Jogging Outside™',
+    category: 'Bas',
+    tagline: 'Coton 380g — Sérigraphie verticale jambe — Badge aigle cuisse',
+    price: 30000,
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    colors: [
+      { label: 'Noir',        hex: '#111',    img: '/images/prod27.jpg' },
+      { label: 'Blanc',       hex: '#f0ebe3', img: '/images/prod26.jpg', light: true },
+      { label: 'Bleu canard', hex: '#1a7b8a', img: '/images/prod28.jpg', light: false },
     ],
   },
   // ─── HOODIE ───
