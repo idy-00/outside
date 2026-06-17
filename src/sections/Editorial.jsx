@@ -4,75 +4,86 @@ export default function Editorial() {
   const ref = useRef(null)
   const [vis, setVis] = useState(false)
   useEffect(() => {
-    const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVis(true) }, { threshold: .08 })
+    const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVis(true) }, { threshold: .06 })
     if (ref.current) o.observe(ref.current)
     return () => o.disconnect()
   }, [])
 
   return (
-    <section ref={ref} style={{
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-      borderTop: '1px solid var(--border)',
-    }}>
-      {/* text — fond noir */}
+    <section ref={ref} style={{ background: 'var(--white)', overflow: 'hidden' }}>
       <div style={{
-        background: 'var(--black)', color: 'var(--white)',
-        padding: 'clamp(3rem, 7vw, 6rem) var(--px)',
-        display: 'flex', flexDirection: 'column', justifyContent: 'center',
-        opacity: vis ? 1 : 0, transform: vis ? 'none' : 'translateY(20px)',
-        transition: 'opacity .6s, transform .6s',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
       }}>
-        <p style={{
-          fontFamily: 'Hanken Grotesk, sans-serif', fontWeight: 300,
-          fontSize: '11px', letterSpacing: '.2em', textTransform: 'uppercase',
-          color: 'rgba(255,255,255,.3)', marginBottom: '2rem',
-        }}>Éditorial 01</p>
+        {/* image */}
+        <div style={{ overflow: 'hidden', minHeight: 520, background: '#0a0a0a', position: 'relative' }}>
+          <img src="/images/look11.jpg" alt="" style={{
+            width: '100%', height: '100%', minHeight: 520,
+            objectFit: 'cover', objectPosition: 'center',
+            transform: vis ? 'scale(1)' : 'scale(1.06)',
+            transition: 'transform 1.4s ease',
+          }} />
+          <div style={{
+            position: 'absolute', inset: 0,
+            background: 'linear-gradient(135deg, rgba(0,0,0,.35) 0%, transparent 60%)',
+          }} />
+          <div style={{
+            position: 'absolute', bottom: '2rem', left: '2rem',
+            fontFamily: 'DM Sans, sans-serif', fontWeight: 300,
+            fontSize: '10px', letterSpacing: '.25em', textTransform: 'uppercase',
+            color: 'rgba(255,255,255,.4)',
+          }}>
+            Éditorial 01 — 2025
+          </div>
+        </div>
 
-        <h2 style={{
-          fontFamily: 'Anton, sans-serif',
-          fontSize: 'clamp(2.2rem, 5.5vw, 4rem)',
-          lineHeight: .9, textTransform: 'uppercase',
-          letterSpacing: '-.01em', marginBottom: '1.8rem',
+        {/* text */}
+        <div style={{
+          background: 'var(--black)', color: 'var(--white)',
+          padding: 'clamp(3.5rem, 8vw, 6rem) var(--px)',
+          display: 'flex', flexDirection: 'column', justifyContent: 'center',
+          opacity: vis ? 1 : 0, transform: vis ? 'none' : 'translateX(30px)',
+          transition: 'opacity .7s .15s, transform .7s .15s',
         }}>
-          Étude des<br />Voids.
-        </h2>
+          <p style={{
+            fontFamily: 'DM Sans, sans-serif', fontWeight: 300,
+            fontSize: '11px', letterSpacing: '.22em', textTransform: 'uppercase',
+            color: 'rgba(255,255,255,.3)', marginBottom: '2rem',
+          }}>Éditorial 01</p>
 
-        <p style={{
-          fontFamily: 'Hanken Grotesk, sans-serif', fontWeight: 300,
-          fontSize: '15px', lineHeight: 1.8,
-          color: 'rgba(255,255,255,.5)', maxWidth: '36ch', marginBottom: '2.5rem',
-        }}>
-          L'espace négatif n'est pas vide, il est structurel.
-          Nos silhouettes sont définies autant par ce qu'elles
-          englobent que par ce qu'elles excluent.
-        </p>
+          <h2 style={{
+            fontFamily: 'Anton, sans-serif',
+            fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
+            lineHeight: .88, textTransform: 'uppercase',
+            letterSpacing: '-.01em', marginBottom: '1.75rem',
+          }}>
+            Étude des<br />Voids.
+          </h2>
 
-        <button onClick={() => document.getElementById('lookbook')?.scrollIntoView({ behavior: 'smooth' })}
-          style={{
-            alignSelf: 'flex-start', background: 'none', border: 'none', padding: 0,
-            fontFamily: 'Hanken Grotesk, sans-serif', fontWeight: 400, fontSize: '13px',
-            letterSpacing: '.06em', color: 'rgba(255,255,255,.6)',
-            borderBottom: '1px solid rgba(255,255,255,.2)', paddingBottom: 3,
-            transition: 'color .2s, border-color .2s',
-          }}
-          onMouseEnter={e => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = '#fff' }}
-          onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,.6)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,.2)' }}>
-          Explorer la campagne →
-        </button>
-      </div>
+          <p style={{
+            fontFamily: 'DM Sans, sans-serif', fontWeight: 300,
+            fontSize: '15px', lineHeight: 1.85,
+            color: 'rgba(255,255,255,.45)', maxWidth: '36ch', marginBottom: '2.5rem',
+          }}>
+            L'espace négatif n'est pas vide, il est structurel.
+            Nos silhouettes sont définies autant par ce qu'elles
+            englobent que par ce qu'elles excluent.
+          </p>
 
-      {/* image */}
-      <div style={{
-        overflow: 'hidden', minHeight: 480, background: '#111',
-        opacity: vis ? 1 : 0, transform: vis ? 'none' : 'translateY(20px)',
-        transition: 'opacity .6s .15s, transform .6s .15s',
-      }}>
-        <img src="/images/look11.jpg" alt="" style={{
-          width: '100%', height: '100%', minHeight: 480,
-          objectFit: 'cover', objectPosition: 'center',
-          filter: 'grayscale(1) contrast(1.15)',
-        }} />
+          <button onClick={() => document.getElementById('lookbook')?.scrollIntoView({ behavior: 'smooth' })}
+            style={{
+              alignSelf: 'flex-start', background: 'none', border: 'none', padding: 0,
+              fontFamily: 'DM Sans, sans-serif', fontWeight: 400,
+              fontSize: '13px', letterSpacing: '.08em', textTransform: 'uppercase',
+              color: 'var(--accent)',
+              display: 'flex', alignItems: 'center', gap: '.6rem',
+              transition: 'gap .2s',
+            }}
+            onMouseEnter={e => e.currentTarget.style.gap = '1rem'}
+            onMouseLeave={e => e.currentTarget.style.gap = '.6rem'}>
+            Explorer la campagne →
+          </button>
+        </div>
       </div>
     </section>
   )

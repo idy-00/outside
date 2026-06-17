@@ -1,63 +1,104 @@
-export default function Hero() {
-  const go = id => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+import { useEffect, useRef } from 'react'
+
+export default function Hero({ setPage }) {
+  const imgRef = useRef(null)
+
+  useEffect(() => {
+    const h = () => {
+      if (imgRef.current)
+        imgRef.current.style.transform = `scale(1.04) translateY(${window.scrollY * 0.18}px)`
+    }
+    window.addEventListener('scroll', h, { passive: true })
+    return () => window.removeEventListener('scroll', h)
+  }, [])
 
   return (
     <section style={{
-      background: 'var(--black)', color: 'var(--white)',
-      minHeight: '100svh',
-      display: 'flex', flexDirection: 'column',
-      justifyContent: 'flex-end',
-      paddingTop: 'var(--nav)',
+      position: 'relative', height: '100svh', minHeight: 600,
+      display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
+      overflow: 'hidden',
     }}>
+      <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+        <img ref={imgRef} src="/images/look9.jpg" alt="" style={{
+          width: '100%', height: '100%',
+          objectFit: 'cover', objectPosition: 'center 25%',
+          transform: 'scale(1.04)', transformOrigin: 'center top',
+          willChange: 'transform', filter: 'brightness(.48)',
+        }} />
+      </div>
       <div style={{
-        padding: 'clamp(4rem, 10vh, 7rem) var(--px) clamp(2.5rem, 5vh, 4rem)',
-        borderTop: '1px solid rgba(255,255,255,.08)',
-      }}>
+        position: 'absolute', inset: 0, zIndex: 1,
+        background: 'linear-gradient(to bottom, transparent 25%, rgba(0,0,0,.72) 100%)',
+      }} />
 
+      <div style={{
+        position: 'relative', zIndex: 2,
+        padding: 'clamp(2.5rem, 8vh, 6rem) var(--px) clamp(2rem, 5vh, 3.5rem)',
+      }}>
         <p style={{
-          fontFamily: 'Hanken Grotesk, sans-serif', fontWeight: 300,
-          fontSize: '12px', letterSpacing: '.2em', textTransform: 'uppercase',
-          color: 'rgba(255,255,255,.3)', marginBottom: '2.5rem',
+          fontFamily: 'var(--sans)', fontWeight: 300,
+          fontSize: '10px', letterSpacing: '.3em', textTransform: 'uppercase',
+          color: 'rgba(255,255,255,.38)', marginBottom: '1rem',
         }}>
           Dakar, Sénégal — SS 2025
         </p>
 
         <h1 style={{
-          fontFamily: 'Anton, sans-serif',
-          fontSize: 'clamp(3rem, 9vw, 7rem)',
-          lineHeight: .9, letterSpacing: '-.01em',
-          textTransform: 'uppercase',
-          marginBottom: 'clamp(2.5rem, 6vh, 4rem)',
+          fontFamily: 'var(--serif)', fontWeight: 300, fontStyle: 'italic',
+          fontSize: 'clamp(2.4rem, 6.5vw, 5.5rem)',
+          lineHeight: 1.08, color: 'var(--white)',
+          marginBottom: 'clamp(1.75rem, 4vh, 2.75rem)',
+          maxWidth: '14ch',
         }}>
-          Blame<br />Your Self<br />Not The<br />World
+          Blame Your Self<br />Not The World
         </h1>
 
         <div style={{
           display: 'flex', alignItems: 'center',
-          justifyContent: 'space-between', flexWrap: 'wrap', gap: '1.5rem',
-          paddingTop: '1.5rem',
-          borderTop: '1px solid rgba(255,255,255,.08)',
+          justifyContent: 'space-between', flexWrap: 'wrap',
+          gap: '1.25rem',
+          paddingTop: '1.25rem',
+          borderTop: '1px solid rgba(255,255,255,.1)',
         }}>
           <p style={{
-            fontFamily: 'Hanken Grotesk, sans-serif', fontWeight: 300,
-            fontSize: '15px', color: 'rgba(255,255,255,.4)',
-            maxWidth: '38ch', lineHeight: 1.7,
+            fontFamily: 'var(--sans)', fontWeight: 300,
+            fontSize: '12px', color: 'rgba(255,255,255,.38)',
+            maxWidth: '32ch', lineHeight: 1.75,
           }}>
             Streetwear né dans les rues de Dakar.
-            Chaque pièce, une posture.
           </p>
 
-          <button onClick={() => go('shop')} style={{
-            background: 'var(--white)', color: 'var(--black)', border: 'none',
-            fontFamily: 'Hanken Grotesk, sans-serif', fontWeight: 500,
-            fontSize: '13px', letterSpacing: '.06em',
-            padding: '.8rem 2rem', flexShrink: 0,
-            transition: 'opacity .15s',
-          }}
-          onMouseEnter={e => e.currentTarget.style.opacity = '.85'}
-          onMouseLeave={e => e.currentTarget.style.opacity = '1'}>
-            Explorer la collection
-          </button>
+          <div style={{ display: 'flex', gap: '.75rem', flexWrap: 'wrap' }}>
+            <button
+              onClick={() => { setPage('shop'); window.scrollTo({ top: 0 }) }}
+              style={{
+                background: 'var(--white)', color: 'var(--black)', border: 'none',
+                fontFamily: 'var(--sans)', fontWeight: 500,
+                fontSize: '11px', letterSpacing: '.18em', textTransform: 'uppercase',
+                padding: '.85rem 2rem',
+                transition: 'opacity .2s',
+                minHeight: 48,
+              }}
+              onMouseEnter={e => e.currentTarget.style.opacity = '.85'}
+              onMouseLeave={e => e.currentTarget.style.opacity = '1'}>
+              Découvrir la collection
+            </button>
+            <button
+              onClick={() => document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' })}
+              style={{
+                background: 'none', border: '1px solid rgba(255,255,255,.28)',
+                color: 'rgba(255,255,255,.7)',
+                fontFamily: 'var(--sans)', fontWeight: 300,
+                fontSize: '11px', letterSpacing: '.18em', textTransform: 'uppercase',
+                padding: '.85rem 1.75rem',
+                transition: 'border-color .2s',
+                minHeight: 48,
+              }}
+              onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,.65)'}
+              onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,.28)'}>
+              Lookbook
+            </button>
+          </div>
         </div>
       </div>
     </section>

@@ -2,13 +2,13 @@ import { useRef, useEffect, useState } from 'react'
 import { WA_NUMBER } from '../data/products'
 
 const STEPS = [
-  { n: '01', t: 'Choisir',   b: 'Parcours la boutique. Modèle, couleur, taille. Ajoute au panier.' },
-  { n: '02', t: 'Envoyer',   b: 'Le panier génère automatiquement ton message WhatsApp.' },
+  { n: '01', t: 'Choisir',   b: 'Parcours la boutique. Modèle, couleur, taille.' },
+  { n: '02', t: 'Envoyer',   b: 'Le panier génère ton message WhatsApp automatiquement.' },
   { n: '03', t: 'Confirmer', b: 'On confirme la dispo sous 24h. Aucune avance requise.' },
   { n: '04', t: 'Recevoir',  b: 'Livraison Dakar ou retrait. Paiement à la réception.' },
 ]
 
-export default function Process() {
+function useVis() {
   const ref = useRef(null)
   const [vis, setVis] = useState(false)
   useEffect(() => {
@@ -16,87 +16,180 @@ export default function Process() {
     if (ref.current) o.observe(ref.current)
     return () => o.disconnect()
   }, [])
+  return [ref, vis]
+}
+
+export default function Process() {
+  const [ref, vis] = useVis()
+
+  const openWA = () => {
+    const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Bonjour OUTSIDE™ 👋, je souhaite passer une commande.')}`
+    window.open(url, '_blank', 'noopener,noreferrer')
+  }
 
   return (
-    <section id="order" ref={ref} style={{ background: 'var(--white)', borderTop: '1px solid var(--border)' }}>
-      <div style={{
-        padding: 'clamp(3rem, 6vw, 5rem) var(--px) 1.5rem',
-        borderBottom: '1px solid var(--border)',
-        opacity: vis ? 1 : 0, transform: vis ? 'none' : 'translateY(10px)',
-        transition: 'opacity .4s, transform .4s',
-      }}>
-        <p style={{
-          fontFamily: 'Hanken Grotesk, sans-serif', fontWeight: 300,
-          fontSize: '11px', letterSpacing: '.18em', textTransform: 'uppercase',
-          color: 'var(--grey)', marginBottom: '.5rem',
-        }}>Comment commander</p>
-        <h2 style={{
-          fontFamily: 'Anton, sans-serif',
-          fontSize: 'clamp(1.8rem, 4.5vw, 3rem)',
-          lineHeight: .9, textTransform: 'uppercase', letterSpacing: '-.01em',
-        }}>Simple & rapide</h2>
-      </div>
+    <section id="order" ref={ref} style={{ background: 'var(--black)' }}>
 
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-        borderBottom: '1px solid var(--border)',
-      }}>
-        <div style={{ borderRight: '1px solid var(--border)' }}>
+        gridTemplateColumns: '1fr 1fr',
+        opacity: vis ? 1 : 0,
+        transition: 'opacity .6s',
+      }} className="process-grid">
+
+        {/* ── GAUCHE : étapes ── */}
+        <div style={{ borderRight: '1px solid rgba(255,255,255,.07)' }} className="process-left">
+          <div style={{
+            padding: 'clamp(3rem, 6vw, 5rem) clamp(2rem, var(--px), 4rem)',
+            borderBottom: '1px solid rgba(255,255,255,.07)',
+          }}>
+            <p style={{
+              fontFamily: 'var(--sans)', fontWeight: 300,
+              fontSize: '10px', letterSpacing: '.3em', textTransform: 'uppercase',
+              color: 'rgba(255,255,255,.25)', marginBottom: '.6rem',
+            }}>Comment commander</p>
+            <h2 style={{
+              fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 300,
+              fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', lineHeight: 1.1,
+              color: 'var(--white)',
+            }}>Simple & rapide</h2>
+          </div>
+
           {STEPS.map((s, i) => (
             <div key={i} style={{
-              display: 'grid', gridTemplateColumns: '3rem 1fr',
-              padding: '1.4rem var(--px)', gap: '.75rem',
-              borderBottom: i < 3 ? '1px solid var(--border)' : 'none',
-              opacity: vis ? 1 : 0, transform: vis ? 'none' : 'translateX(-8px)',
-              transition: `opacity .4s ${.08 * i}s, transform .4s ${.08 * i}s`,
+              display: 'grid', gridTemplateColumns: '2.5rem 1fr',
+              padding: 'clamp(1.25rem, 2.5vw, 1.75rem) clamp(2rem, var(--px), 4rem)',
+              gap: '1rem',
+              borderBottom: '1px solid rgba(255,255,255,.07)',
+              opacity: vis ? 1 : 0,
+              transform: vis ? 'none' : 'translateX(-8px)',
+              transition: `opacity .45s ${.08 * i + .1}s, transform .45s ${.08 * i + .1}s`,
             }}>
-              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: 'rgba(0,0,0,.2)', paddingTop: 2 }}>{s.n}</span>
+              <span style={{
+                fontFamily: 'var(--sans)', fontWeight: 300,
+                fontSize: '10px', color: 'rgba(255,255,255,.18)',
+                letterSpacing: '.08em', paddingTop: 2,
+              }}>{s.n}</span>
               <div>
-                <p style={{ fontFamily: 'Hanken Grotesk, sans-serif', fontWeight: 500, fontSize: '14px', marginBottom: '.35rem' }}>{s.t}</p>
-                <p style={{ fontFamily: 'Hanken Grotesk, sans-serif', fontWeight: 300, fontSize: '14px', color: 'var(--grey)', lineHeight: 1.7 }}>{s.b}</p>
+                <p style={{
+                  fontFamily: 'var(--sans)', fontWeight: 400,
+                  fontSize: '13px', marginBottom: '.3rem',
+                  color: 'var(--white)',
+                }}>{s.t}</p>
+                <p style={{
+                  fontFamily: 'var(--sans)', fontWeight: 300,
+                  fontSize: '12px', color: 'rgba(255,255,255,.35)', lineHeight: 1.7,
+                }}>{s.b}</p>
               </div>
             </div>
           ))}
         </div>
 
+        {/* ── DROITE : CTA + contact ── */}
         <div style={{
-          padding: 'clamp(3rem, 7vw, 5rem) var(--px)',
-          display: 'flex', flexDirection: 'column', justifyContent: 'center',
-          opacity: vis ? 1 : 0, transform: vis ? 'none' : 'translateY(12px)',
-          transition: 'opacity .5s .25s, transform .5s .25s',
+          padding: 'clamp(3rem, 6vw, 5rem) clamp(2rem, var(--px), 4rem)',
+          display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+          gap: '3rem',
+          opacity: vis ? 1 : 0,
+          transform: vis ? 'none' : 'translateY(14px)',
+          transition: 'opacity .6s .25s, transform .6s .25s',
         }}>
-          <h3 style={{
-            fontFamily: 'Anton, sans-serif',
-            fontSize: 'clamp(2.2rem, 5.5vw, 4rem)',
-            lineHeight: .9, textTransform: 'uppercase',
-            letterSpacing: '-.01em', marginBottom: '1.5rem',
-          }}>
-            Prêt à<br />sortir ?
-          </h3>
-          <p style={{
-            fontFamily: 'Hanken Grotesk, sans-serif', fontWeight: 300,
-            fontSize: '15px', lineHeight: 1.8, color: 'var(--grey)',
-            maxWidth: '32ch', marginBottom: '2.5rem',
-          }}>
-            Paiement à la réception. Livraison Dakar.
-            Aucune avance. Zéro prise de tête.
-          </p>
-          <a href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Bonjour OUTSIDE 👋, je souhaite passer une commande.')}`}
-            target="_blank" rel="noopener noreferrer"
-            style={{
-              alignSelf: 'flex-start',
-              background: 'var(--black)', color: 'var(--white)',
-              fontFamily: 'Hanken Grotesk, sans-serif', fontWeight: 500,
-              fontSize: '14px', padding: '.8rem 2rem', textDecoration: 'none',
-              transition: 'opacity .15s',
+
+          {/* accroche */}
+          <div>
+            <h3 style={{
+              fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 300,
+              fontSize: 'clamp(2rem, 4.5vw, 3.8rem)',
+              lineHeight: 1.05, color: 'var(--white)',
+              marginBottom: '1.25rem',
+            }}>
+              Prêt à sortir<br/>dans les rues ?
+            </h3>
+            <p style={{
+              fontFamily: 'var(--sans)', fontWeight: 300,
+              fontSize: '13px', lineHeight: 1.9,
+              color: 'rgba(255,255,255,.35)',
+              maxWidth: '32ch',
+            }}>
+              Paiement à la réception. Livraison Dakar.
+              Aucune avance. Zéro prise de tête.
+            </p>
+          </div>
+
+          {/* bouton WhatsApp */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <button onClick={openWA} style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '.6rem',
+              background: '#25D366', color: 'var(--white)', border: 'none',
+              fontFamily: 'var(--sans)', fontWeight: 400,
+              fontSize: '11px', letterSpacing: '.18em', textTransform: 'uppercase',
+              padding: '1rem 2rem', minHeight: 52,
+              transition: 'opacity .2s', cursor: 'pointer', width: '100%',
             }}
-            onMouseEnter={e => e.currentTarget.style.opacity = '.8'}
+            onMouseEnter={e => e.currentTarget.style.opacity = '.85'}
             onMouseLeave={e => e.currentTarget.style.opacity = '1'}>
-            Commander sur WhatsApp
-          </a>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Commander sur WhatsApp
+            </button>
+          </div>
+
+          {/* contact + réseaux */}
+          <div style={{ borderTop: '1px solid rgba(255,255,255,.07)', paddingTop: '2rem' }}>
+            <p style={{
+              fontFamily: 'var(--sans)', fontWeight: 300,
+              fontSize: '10px', letterSpacing: '.28em', textTransform: 'uppercase',
+              color: 'rgba(255,255,255,.2)', marginBottom: '1.25rem',
+            }}>Nous retrouver</p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '.85rem' }}>
+              {[
+                {
+                  icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>,
+                  label: 'WhatsApp',
+                  value: '+221 78 527 31 87',
+                  action: openWA,
+                },
+                {
+                  icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>,
+                  label: 'Instagram',
+                  value: '@outside.dakar',
+                  action: null,
+                },
+                {
+                  icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>,
+                  label: 'TikTok',
+                  value: '@outside.dakar',
+                  action: null,
+                },
+              ].map(({ icon, label, value, action }) => (
+                <div key={label}
+                  onClick={action || undefined}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: '.75rem',
+                    cursor: action ? 'pointer' : 'default',
+                  }}
+                  onMouseEnter={e => { if (action) e.currentTarget.style.opacity = '.7' }}
+                  onMouseLeave={e => { if (action) e.currentTarget.style.opacity = '1' }}>
+                  <span style={{ color: 'rgba(255,255,255,.3)', display: 'flex', alignItems: 'center' }}>{icon}</span>
+                  <span style={{
+                    fontFamily: 'var(--sans)', fontWeight: 300,
+                    fontSize: '12px', color: 'rgba(255,255,255,.45)',
+                    letterSpacing: '.03em',
+                  }}>{value}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .process-grid { grid-template-columns: 1fr !important; }
+          .process-left { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,.07); }
+        }
+      `}</style>
     </section>
   )
 }

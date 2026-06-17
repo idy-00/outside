@@ -1,12 +1,12 @@
 import { useRef, useEffect, useState } from 'react'
 
 const GRID = [
-  { src: '/images/look9.jpg',  col: '1/5',  ar: '3/4' },
-  { src: '/images/look1.jpg',  col: '5/8',  ar: '3/4' },
-  { src: '/images/look2.jpg',  col: '8/13', ar: '3/4' },
-  { src: '/images/look10.jpg', col: '1/5',  ar: '4/3' },
-  { src: '/images/look6.jpg',  col: '5/9',  ar: '4/3' },
-  { src: '/images/look7.jpg',  col: '9/13', ar: '4/3' },
+  { src: '/images/look11.jpg', span: 2, tall: true },
+  { src: '/images/look1.jpg',  span: 1 },
+  { src: '/images/look2.jpg',  span: 1 },
+  { src: '/images/look5.jpg',  span: 1 },
+  { src: '/images/look7.jpg',  span: 1 },
+  { src: '/images/look3.jpg',  span: 2 },
 ]
 
 export default function Lookbook() {
@@ -19,53 +19,87 @@ export default function Lookbook() {
   }, [])
 
   return (
-    <section id="lookbook" ref={ref} style={{ background: 'var(--black)', borderTop: '1px solid #1a1a1a' }}>
-      <div style={{
-        padding: 'clamp(2.5rem, 5vw, 4rem) var(--px) 1.5rem',
+    <section id="lookbook" style={{ background: 'var(--black)' }}>
+      <div ref={ref} style={{
+        padding: 'clamp(3rem, 6vw, 5rem) var(--px) 2rem',
         display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end',
-        borderBottom: '1px solid #1a1a1a', color: 'var(--white)',
-        opacity: vis ? 1 : 0, transition: 'opacity .5s',
+        borderBottom: '1px solid rgba(255,255,255,.06)',
+        opacity: vis ? 1 : 0, transition: 'opacity .6s',
       }}>
         <div>
           <p style={{
-            fontFamily: 'Hanken Grotesk, sans-serif', fontWeight: 300,
-            fontSize: '11px', letterSpacing: '.2em', textTransform: 'uppercase',
+            fontFamily: 'var(--sans)', fontWeight: 300,
+            fontSize: '10px', letterSpacing: '.28em', textTransform: 'uppercase',
             color: 'rgba(255,255,255,.25)', marginBottom: '.5rem',
           }}>Dans les rues · 2025</p>
           <h2 style={{
-            fontFamily: 'Anton, sans-serif',
-            fontSize: 'clamp(1.8rem, 4vw, 3rem)',
-            lineHeight: .9, textTransform: 'uppercase', letterSpacing: '-.01em',
+            fontFamily: 'var(--serif)', fontWeight: 300,
+            fontStyle: 'italic',
+            fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)',
+            lineHeight: 1.05, color: 'var(--white)',
           }}>Lookbook</h2>
         </div>
         <span style={{
-          fontFamily: 'Hanken Grotesk, sans-serif', fontWeight: 300,
-          fontSize: '11px', letterSpacing: '.15em', textTransform: 'uppercase',
-          color: 'rgba(255,255,255,.2)',
+          fontFamily: 'var(--sans)', fontWeight: 300,
+          fontSize: '10px', letterSpacing: '.22em', textTransform: 'uppercase',
+          color: 'rgba(255,255,255,.18)',
         }}>SS 2025</span>
       </div>
 
       <div style={{
-        display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)',
-        gap: 2, padding: 2, background: 'var(--black)',
+        display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',
+        gap: '2px', background: 'rgba(255,255,255,.04)',
       }}>
-        {GRID.map(({ src, col, ar }, i) => (
+        {GRID.map(({ src, span, tall }, i) => (
           <div key={i} style={{
-            gridColumn: col, overflow: 'hidden', aspectRatio: ar, background: '#111',
-            opacity: vis ? 1 : 0, transform: vis ? 'none' : 'translateY(12px)',
-            transition: `opacity .5s ${.06 * i}s, transform .5s ${.06 * i}s`,
+            gridColumn: `span ${span}`,
+            overflow: 'hidden',
+            aspectRatio: tall ? '2/3' : span === 2 ? '16/9' : '3/4',
+            background: '#111',
+            opacity: vis ? 1 : 0,
+            transform: vis ? 'none' : 'translateY(16px)',
+            transition: `opacity .5s ${.07 * i}s, transform .5s ${.07 * i}s`,
+            position: 'relative',
           }}
-          onMouseEnter={e => e.currentTarget.querySelector('img').style.transform = 'scale(1.05)'}
-          onMouseLeave={e => e.currentTarget.querySelector('img').style.transform = 'scale(1)'}>
+          onMouseEnter={e => { e.currentTarget.querySelector('img').style.transform = 'scale(1.05)'; e.currentTarget.querySelector('.ov').style.opacity = '1' }}
+          onMouseLeave={e => { e.currentTarget.querySelector('img').style.transform = 'scale(1)'; e.currentTarget.querySelector('.ov').style.opacity = '0' }}>
             <img src={src} loading="lazy" alt="" style={{
               width: '100%', height: '100%',
               objectFit: 'cover', objectPosition: 'center top',
-              filter: 'grayscale(.2)',
-              transition: 'transform .6s ease',
+              transition: 'transform .7s ease',
+            }} />
+            <div className="ov" style={{
+              position: 'absolute', inset: 0,
+              background: 'rgba(0,0,0,.25)',
+              opacity: 0, transition: 'opacity .3s',
             }} />
           </div>
         ))}
       </div>
+
+      <div style={{
+        overflow: 'hidden',
+        borderTop: '1px solid rgba(255,255,255,.05)',
+        padding: '1.1rem 0',
+      }}>
+        <div style={{
+          display: 'flex', gap: '5rem',
+          animation: 'marquee 20s linear infinite',
+          whiteSpace: 'nowrap',
+        }}>
+          {Array(6).fill(null).map((_, i) => (
+            <span key={i} style={{
+              fontFamily: 'var(--sans)', fontWeight: 300,
+              fontSize: '10px', letterSpacing: '.25em', textTransform: 'uppercase',
+              color: 'rgba(255,255,255,.1)',
+            }}>
+              OUTSIDE · DAKAR · SS 2025 · BLAME YOURSELF NOT THE WORLD
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <style>{`@keyframes marquee { from { transform: translateX(0) } to { transform: translateX(-50%) } }`}</style>
     </section>
   )
 }

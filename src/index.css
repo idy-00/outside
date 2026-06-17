@@ -1,13 +1,16 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --black:  #0d0d0d;
-  --white:  #faf8f5;   /* blanc chaud cassé, pas clinique */
-  --grey:   #888;
-  --border: rgba(0,0,0,.12);
-  --wa:     #128C7E;
-  --px:     clamp(1.25rem, 5vw, 4rem);
-  --nav:    68px;
+  --black:  #0a0a0a;
+  --white:  #ffffff;
+  --off:    #f6f4f0;
+  --grey:   #767674;
+  --light:  #e4e1db;
+  --accent: #505050;
+  --px:     clamp(1.5rem, 5vw, 4rem);
+  --nav:    64px;
+  --serif:  'Cormorant Garant', serif;
+  --sans:   'DM Sans', sans-serif;
 }
 
 html { font-size: 16px; scroll-behavior: smooth; }
@@ -15,13 +18,16 @@ html { font-size: 16px; scroll-behavior: smooth; }
 body {
   background: var(--white);
   color: var(--black);
-  font-family: 'Hanken Grotesk', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
 ::selection { background: var(--black); color: var(--white); }
-::-webkit-scrollbar { width: 0; }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--light); }
 img { display: block; max-width: 100%; }
 button { cursor: pointer; }
+a { text-decoration: none; }

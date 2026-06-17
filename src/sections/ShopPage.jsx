@@ -38,7 +38,7 @@ function ProductRow({ p, index, reverse }) {
       opacity: vis ? 1 : 0,
       transform: vis ? 'none' : 'translateY(28px)',
       transition: `opacity .6s ${index * .1}s, transform .6s ${index * .1}s`,
-    }}>
+    }} className="product-row">
 
       {/* IMAGE */}
       <div style={{
@@ -46,10 +46,11 @@ function ProductRow({ p, index, reverse }) {
         overflow: 'hidden',
         background: color.light ? '#f5f2ed' : '#111',
         position: 'relative',
+        minHeight: 420,
       }}
         onMouseEnter={() => setImgHov(true)}
         onMouseLeave={() => setImgHov(false)}>
-        <img src={color.img} alt={p.name} style={{
+        <img src={color.img} alt={p.name} loading="lazy" style={{
           width: '100%', height: '100%',
           objectFit: 'contain', objectPosition: 'center',
           padding: '2.5rem',
@@ -57,23 +58,41 @@ function ProductRow({ p, index, reverse }) {
           transition: 'transform .8s cubic-bezier(.25,.46,.45,.94)',
         }} />
 
+        {/* sélecteur couleur */}
         {p.colors.length > 1 && (
           <div style={{
-            position: 'absolute', bottom: '1.25rem', left: '50%',
-            transform: 'translateX(-50%)',
-            display: 'flex', gap: 6,
+            position: 'absolute', bottom: '1rem', left: 0, right: 0,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            gap: 0,
+            padding: '0 1rem',
           }}>
-            {p.colors.map((c, i) => (
-              <button key={i} onClick={() => setCi(i)} title={c.label} style={{
-                width: 22, height: 22,
-                background: c.hex,
-                border: 'none',
-                outline: i === ci ? '1.5px solid rgba(0,0,0,.5)' : '1.5px solid transparent',
-                outlineOffset: 3,
-                boxShadow: '0 1px 4px rgba(0,0,0,.12)',
-                transition: 'outline-color .15s',
-              }} />
-            ))}
+            <div style={{
+              display: 'flex',
+              background: 'rgba(255,255,255,.92)',
+              backdropFilter: 'blur(8px)',
+              padding: '5px 8px',
+              gap: 6,
+            }}>
+              {p.colors.map((c, i) => (
+                <button key={i} onClick={() => setCi(i)} title={c.label} style={{
+                  width: 28, height: 28,
+                  background: c.hex,
+                  border: i === ci ? '2px solid var(--black)' : '2px solid transparent',
+                  outline: 'none',
+                  boxShadow: i === ci ? 'none' : 'inset 0 0 0 1px rgba(0,0,0,.12)',
+                  transition: 'border-color .15s, transform .15s',
+                  transform: i === ci ? 'scale(1.1)' : 'scale(1)',
+                  minWidth: 28, minHeight: 28,
+                  flexShrink: 0,
+                }} />
+              ))}
+              <span style={{
+                fontFamily: 'var(--sans)', fontWeight: 300,
+                fontSize: '10px', letterSpacing: '.1em',
+                color: 'var(--black)', textTransform: 'uppercase',
+                alignSelf: 'center', paddingLeft: 6, whiteSpace: 'nowrap',
+              }}>{color.label}</span>
+            </div>
           </div>
         )}
       </div>
@@ -89,29 +108,28 @@ function ProductRow({ p, index, reverse }) {
         <span style={{
           fontFamily: 'var(--sans)', fontWeight: 300,
           fontSize: '10px', letterSpacing: '.28em', textTransform: 'uppercase',
-          color: 'var(--light)', marginBottom: '1.75rem', display: 'block',
+          color: 'var(--grey)', marginBottom: '1.75rem', display: 'block',
         }}>0{index + 1} — {p.category}</span>
 
         <h3 style={{
           fontFamily: 'var(--serif)', fontWeight: 400,
           fontStyle: 'italic',
           fontSize: 'clamp(1.6rem, 3vw, 2.4rem)',
-          lineHeight: 1.1,
-          letterSpacing: '.01em',
+          lineHeight: 1.1, letterSpacing: '.01em',
           marginBottom: '.6rem',
         }}>{p.name}</h3>
 
         <p style={{
           fontFamily: 'var(--sans)', fontWeight: 300,
           fontSize: '12px', color: 'var(--grey)',
-          letterSpacing: '.04em', marginBottom: '2rem',
+          letterSpacing: '.04em', marginBottom: '1.5rem',
           lineHeight: 1.6,
-        }}>{p.tagline} — {color.label}</p>
+        }}>{p.tagline}</p>
 
         <p style={{
           fontFamily: 'var(--sans)', fontWeight: 400,
           fontSize: '1.1rem', letterSpacing: '.02em',
-          marginBottom: '2rem',
+          marginBottom: '1.75rem',
         }}>{p.price.toLocaleString('fr')} F CFA</p>
 
         {/* tailles */}
@@ -121,7 +139,7 @@ function ProductRow({ p, index, reverse }) {
             fontSize: '10px', letterSpacing: '.22em', textTransform: 'uppercase',
             color: 'var(--grey)', marginBottom: '.6rem',
           }}>Taille</p>
-          <div style={{ display: 'flex', gap: 4 }}>
+          <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
             {p.sizes.map((s, i) => (
               <button key={s} onClick={() => setSi(i)} style={{
                 width: 38, height: 38,
@@ -143,6 +161,7 @@ function ProductRow({ p, index, reverse }) {
           fontFamily: 'var(--sans)', fontWeight: 400,
           fontSize: '11px', letterSpacing: '.18em', textTransform: 'uppercase',
           padding: '.9rem 2.2rem',
+          minHeight: 48,
           transition: 'background .3s, opacity .15s',
         }}
         onMouseEnter={e => { if (!added) e.currentTarget.style.opacity = '.8' }}
@@ -154,16 +173,21 @@ function ProductRow({ p, index, reverse }) {
   )
 }
 
-export default function Shop() {
+export default function ShopPage({ setPage }) {
   const [cat, setCat] = useState('Tous')
   const [headerRef, headerVis] = useVis()
-  const filtered = cat === 'Tous' ? PRODUCTS : PRODUCTS.filter(p => p.category === cat)
+  const filtered = cat === 'Tous' ? PRODUCTS : PRODUCTS.filter(p => p.category === p.category && (cat === 'Tous' || p.category === cat))
+
+  useEffect(() => { window.scrollTo({ top: 0 }) }, [])
+
+  const filteredProducts = cat === 'Tous' ? PRODUCTS : PRODUCTS.filter(p => p.category === cat)
 
   return (
-    <section id="shop">
+    <div style={{ paddingTop: 'var(--nav)', background: 'var(--white)', minHeight: '100vh' }}>
 
+      {/* header */}
       <div ref={headerRef} style={{
-        padding: 'clamp(4rem, 8vw, 6rem) var(--px) 0',
+        padding: 'clamp(3rem, 6vw, 5rem) var(--px) 0',
         opacity: headerVis ? 1 : 0,
         transform: headerVis ? 'none' : 'translateY(14px)',
         transition: 'opacity .5s, transform .5s',
@@ -180,15 +204,16 @@ export default function Shop() {
               fontSize: '10px', letterSpacing: '.28em', textTransform: 'uppercase',
               color: 'var(--grey)', marginBottom: '.5rem',
             }}>Collection SS 2025</p>
-            <h2 style={{
+            <h1 style={{
               fontFamily: 'var(--serif)', fontWeight: 300,
               fontStyle: 'italic',
               fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)',
-              lineHeight: 1.05, letterSpacing: '.01em',
-            }}>The Collection</h2>
+              lineHeight: 1.05,
+            }}>The Collection</h1>
           </div>
 
-          <nav style={{ display: 'flex', gap: '2rem' }}>
+          {/* filtres */}
+          <nav style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
             {CATEGORIES.map(c => (
               <button key={c} onClick={() => setCat(c)} style={{
                 background: 'none', border: 'none', padding: 0,
@@ -198,18 +223,57 @@ export default function Shop() {
                 borderBottom: c === cat ? '1px solid var(--black)' : '1px solid transparent',
                 paddingBottom: '2px',
                 transition: 'color .15s',
+                minHeight: 36,
               }}>{c}</button>
             ))}
           </nav>
         </div>
       </div>
 
+      {/* produits — ligne complète */}
       <div>
-        {filtered.map((p, i) => (
+        {filteredProducts.map((p, i) => (
           <ProductRow key={p.id} p={p} index={i} reverse={i % 2 === 1} />
         ))}
       </div>
 
-    </section>
+      {/* bas de page */}
+      <div style={{
+        padding: 'clamp(3rem, 6vw, 5rem) var(--px)',
+        textAlign: 'center',
+        borderTop: '1px solid var(--light)',
+      }}>
+        <p style={{
+          fontFamily: 'var(--sans)', fontWeight: 300,
+          fontSize: '12px', color: 'var(--grey)',
+          letterSpacing: '.04em', marginBottom: '1.5rem',
+          lineHeight: 1.8,
+        }}>
+          Paiement à la réception · Livraison Dakar · Aucune avance
+        </p>
+        <button onClick={() => setPage('home')} style={{
+          background: 'none', border: 'none', padding: 0,
+          fontFamily: 'var(--sans)', fontWeight: 300,
+          fontSize: '11px', letterSpacing: '.18em', textTransform: 'uppercase',
+          color: 'var(--grey)',
+          borderBottom: '1px solid var(--light)', paddingBottom: '2px',
+          transition: 'color .15s',
+        }}
+        onMouseEnter={e => e.currentTarget.style.color = 'var(--black)'}
+        onMouseLeave={e => e.currentTarget.style.color = 'var(--grey)'}>
+          Retour accueil
+        </button>
+      </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .product-row {
+            grid-template-columns: 1fr !important;
+            min-height: unset !important;
+          }
+          .product-row > div { order: unset !important; }
+        }
+      `}</style>
+    </div>
   )
 }
