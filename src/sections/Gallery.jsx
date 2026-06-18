@@ -132,7 +132,7 @@ export default function Gallery() {
             fontSize: 'clamp(1.5rem, 2.8vw, 2.2rem)', lineHeight: 1.15,
             marginBottom: '1.25rem',
           }}>
-            Confort Sherpa,<br />style maximal
+            L'Ensemble Outside™,<br />du sol au plafond
           </h3>
           <p style={{
             fontFamily: 'var(--sans)', fontWeight: 300,
@@ -140,14 +140,14 @@ export default function Gallery() {
             color: 'var(--grey)',
             maxWidth: '36ch',
           }}>
-            Le Jogging Sherpa Outside™ combine texture premium et style rue.
-            Logo brodé. Coupe ample. Chaud comme il faut.
+            L'Ensemble Outside™ : texture premium, coupe ample, logo aigle brodé.
+            Haut et bas assortis. Un look complet, sans effort.
           </p>
           <div style={{
             marginTop: '2rem',
             display: 'flex', gap: '2rem',
           }}>
-            {[['45 000', 'Jogging Sherpa'], ['25 000', 'Hoodie Classic']].map(([price, label]) => (
+            {[['25 000', 'Ensemble Outside™'], ['15 000', 'Hoodie Outside™']].map(([price, label]) => (
               <div key={label}>
                 <p style={{
                   fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 300,

@@ -20,13 +20,13 @@ export const WA_NUMBER = '221785273187'
 // prod2=hoodie noir (ancienne), prod6=hoodie blanc (ancienne)
 
 export const PRODUCTS = [
-  // ─── JOGGING SHERPA ───
+  // ─── SET EAGLE (sherpa) ───
   {
     id: 'jogging-sherpa',
-    name: 'Jogging Sherpa',
+    name: 'Ensemble Outside™',
     category: 'Sets',
     tagline: 'Ensemble Sherpa — Logo aigle brodé — Coupe ample',
-    price: 45000,
+    price: 25000,
     sizes: ['S', 'M', 'L', 'XL'],
     colors: [
       { label: 'Noir',  hex: '#111',    img: '/images/prod11.jpg' },
@@ -39,7 +39,7 @@ export const PRODUCTS = [
     name: 'Jogging Outside™',
     category: 'Bas',
     tagline: 'Coton 380g — Sérigraphie verticale jambe — Badge aigle cuisse',
-    price: 30000,
+    price: 8000,
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
     colors: [
       { label: 'Noir',        hex: '#111',    img: '/images/prod27.jpg' },
@@ -53,7 +53,7 @@ export const PRODUCTS = [
     name: 'Hoodie Outside™',
     category: 'Hauts',
     tagline: 'Coton lourd — Badge aigle dos — Coupe oversize',
-    price: 25000,
+    price: 15000,
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
     colors: [
       { label: 'Noir',  hex: '#111',    img: '/images/prod13.jpg' },
@@ -66,7 +66,7 @@ export const PRODUCTS = [
     name: 'T-Shirt Eagle™',
     category: 'T-Shirts',
     tagline: 'Oversize — Badge aigle dos — Logo arc poitrine',
-    price: 15000,
+    price: 10000,
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
     colors: [
       { label: 'Noir',       hex: '#111',    img: '/images/prod17.jpg' },
@@ -82,7 +82,7 @@ export const PRODUCTS = [
     name: 'T-Shirt Blame™',
     category: 'T-Shirts',
     tagline: 'Oversize 280g — Sérigraphie texte avant',
-    price: 15000,
+    price: 10000,
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
     colors: [
       { label: 'Noir',       hex: '#111',    img: '/images/prod9.jpg' },
@@ -98,7 +98,7 @@ export const PRODUCTS = [
     name: 'Débardeur Eagle™',
     category: 'T-Shirts',
     tagline: 'Coupe muscle — Badge aigle dos — Unisexe',
-    price: 12000,
+    price: 9000,
     sizes: ['S', 'M', 'L', 'XL'],
     colors: [
       { label: 'Noir',       hex: '#111',    img: '/images/prod21.jpg' },
@@ -112,7 +112,7 @@ export const PRODUCTS = [
     name: 'Bonnet Outside™',
     category: 'Accessoires',
     tagline: 'Coton stretch — Logo brodé — Taille unique',
-    price: 8000,
+    price: 4000,
     sizes: ['Unique'],
     colors: [
       { label: 'Noir',  hex: '#111',    img: '/images/prod24.jpg' },
