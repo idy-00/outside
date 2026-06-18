@@ -37,7 +37,7 @@ export default function Footer({ setPage, page }) {
       }}>
         {[
           { label: 'Navigation', items: [['shop','Shop'],['gallery','Lookbook'],['order','Commander']], type: 'btn' },
-          { label: 'Contact',    items: [[`https://wa.me/${WA_NUMBER}`,'WhatsApp'],['#','Instagram'],['#','TikTok']], type: 'link' },
+          { label: 'Contact',    items: [[`https://wa.me/${WA_NUMBER}`,'WhatsApp'],['https://www.instagram.com/outside_drip?igsh=NmlycnVqNTMzanB1','Instagram'],['https://vt.tiktok.com/ZSQWhWnsT/','TikTok']], type: 'link' },
           { label: 'Info',       items: [['','Livraison Dakar'],['','Paiement à réception'],['','Retours 7 jours']], type: 'text' },
         ].map(col => (
           <div key={col.label}>
