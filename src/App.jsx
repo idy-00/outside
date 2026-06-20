@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { trackPageView } from './admin/stats'
 import { CartProvider } from './context/CartContext'
 import { ProductsProvider } from './context/ProductsContext'
 import Nav        from './components/Nav'
@@ -37,6 +38,7 @@ const isAdmin = window.location.pathname === '/admin'
 
 export default function App() {
   const [page, setPage] = useState('home')
+  useEffect(() => { trackPageView() }, [])
 
   if (isAdmin) return <Admin />
 

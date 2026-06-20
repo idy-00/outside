@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useCart } from '../context/CartContext'
 import { WA_NUMBER } from '../data/products'
+import { trackWhatsApp } from '../admin/stats'
 
 function buildMsg(items) {
   const lines = items.map(i =>
@@ -197,6 +198,7 @@ export default function CartDrawer() {
             <button
               onClick={() => {
                 const url = `https://wa.me/${WA_NUMBER}?text=${buildMsg(items)}`
+                trackWhatsApp()
                 window.open(url, '_blank', 'noopener,noreferrer')
                 closeCart()
               }}

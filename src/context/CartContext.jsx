@@ -1,4 +1,5 @@
 import { createContext, useContext, useReducer, useCallback } from 'react'
+import { trackCartAdd } from '../admin/stats'
 
 const Ctx = createContext(null)
 
@@ -22,7 +23,7 @@ function reducer(state, a) {
 
 export function CartProvider({ children }) {
   const [s, dispatch] = useReducer(reducer, { items: [], open: false })
-  const add    = useCallback(item       => dispatch({ type: 'ADD',    item }),       [])
+  const add    = useCallback(item       => { dispatch({ type: 'ADD', item }); trackCartAdd(item.id) },       [])
   const remove = useCallback(key        => dispatch({ type: 'REMOVE', key }),        [])
   const setQty = useCallback((key, qty) => dispatch({ type: 'QTY',    key, qty }),   [])
   const clear  = useCallback(()         => dispatch({ type: 'CLEAR' }),              [])
