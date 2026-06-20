@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { CartProvider } from './context/CartContext'
+import { ProductsProvider } from './context/ProductsContext'
 import Nav        from './components/Nav'
 import CartDrawer from './components/CartDrawer'
 import Hero       from './sections/Hero'
@@ -9,6 +10,7 @@ import BestSellers from './sections/BestSellers'
 import Process    from './sections/Process'
 import Footer     from './sections/Footer'
 import ShopPage   from './sections/ShopPage'
+import Admin      from './admin/Admin'
 
 function Divider() {
   return (
@@ -30,25 +32,32 @@ function Divider() {
   )
 }
 
+// simple hash-based routing for admin (no react-router)
+const isAdmin = window.location.pathname === '/admin'
+
 export default function App() {
   const [page, setPage] = useState('home')
 
+  if (isAdmin) return <Admin />
+
   return (
-    <CartProvider>
-      <Nav page={page} setPage={setPage} />
-      <CartDrawer />
-      {page === 'shop' ? (
-        <ShopPage setPage={setPage} />
-      ) : (
-        <main>
-          <Hero setPage={setPage} />
-          <Manifesto />
-          <BestSellers setPage={setPage} />
-          <Gallery />
-          <Process />
-        </main>
-      )}
-      <Footer setPage={setPage} page={page} />
-    </CartProvider>
+    <ProductsProvider>
+      <CartProvider>
+        <Nav page={page} setPage={setPage} />
+        <CartDrawer />
+        {page === 'shop' ? (
+          <ShopPage setPage={setPage} />
+        ) : (
+          <main>
+            <Hero setPage={setPage} />
+            <Manifesto />
+            <BestSellers setPage={setPage} />
+            <Gallery />
+            <Process />
+          </main>
+        )}
+        <Footer setPage={setPage} page={page} />
+      </CartProvider>
+    </ProductsProvider>
   )
 }

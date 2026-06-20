@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { useCart } from '../context/CartContext'
-import { PRODUCTS } from '../data/products'
+import { useProducts } from '../context/ProductsContext'
 
 const PICKS = [
   { id: 'jogging-sherpa', colorIndex: 0 },
@@ -153,6 +153,7 @@ function BestCard({ product, defaultColor, index }) {
 
 export default function BestSellers({ setPage }) {
   const [headerRef, headerVis] = useVis()
+  const PRODUCTS = useProducts()
   const picks = PICKS.map(({ id, colorIndex }) => ({
     product: PRODUCTS.find(p => p.id === id),
     defaultColor: colorIndex,

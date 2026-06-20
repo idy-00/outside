@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useCart } from '../context/CartContext'
-import { PRODUCTS, CATEGORIES } from '../data/products'
+import { useProducts } from '../context/ProductsContext'
+import { CATEGORIES } from '../data/products'
 
 function useVis() {
   const ref = useRef(null)
@@ -176,7 +177,8 @@ function ProductRow({ p, index, reverse }) {
 export default function ShopPage({ setPage }) {
   const [cat, setCat] = useState('Tous')
   const [headerRef, headerVis] = useVis()
-  const filtered = cat === 'Tous' ? PRODUCTS : PRODUCTS.filter(p => p.category === p.category && (cat === 'Tous' || p.category === cat))
+  const PRODUCTS = useProducts()
+  const categories = ['Tous', ...new Set(PRODUCTS.map(p => p.category))]
 
   useEffect(() => { window.scrollTo({ top: 0 }) }, [])
 
@@ -214,7 +216,7 @@ export default function ShopPage({ setPage }) {
 
           {/* filtres */}
           <nav style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
-            {CATEGORIES.map(c => (
+            {categories.map(c => (
               <button key={c} onClick={() => setCat(c)} style={{
                 background: 'none', border: 'none', padding: 0,
                 fontFamily: 'var(--sans)', fontWeight: c === cat ? 400 : 300,

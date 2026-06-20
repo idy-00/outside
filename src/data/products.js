@@ -117,6 +117,7 @@ export const PRODUCTS = [
     colors: [
       { label: 'Noir',  hex: '#111',    img: '/images/prod24.jpg' },
       { label: 'Blanc', hex: '#f0ebe3', img: '/images/prod25.jpg', light: true },
+      { label: 'Gris',  hex: '#9e9e9e', img: '/images/prod29.jpg', light: true },
     ],
   },
 ]
