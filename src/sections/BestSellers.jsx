@@ -20,7 +20,7 @@ function useVis() {
 }
 
 function BestCard({ product, defaultColor, index }) {
-  const [ci, setCi] = useState(defaultColor)
+  const [ci, setCi] = useState(() => Math.floor(Math.random() * product.colors.length))
   const [si, setSi] = useState(0)
   const [added, setAdded] = useState(false)
   const [hov, setHov] = useState(false)

@@ -15,7 +15,7 @@ function useVis() {
 }
 
 function ProductRow({ p, index, reverse }) {
-  const [ci, setCi] = useState(0)
+  const [ci, setCi] = useState(() => Math.floor(Math.random() * p.colors.length))
   const [si, setSi] = useState(0)
   const [added, setAdded] = useState(false)
   const [imgHov, setImgHov] = useState(false)
