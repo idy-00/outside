@@ -40,7 +40,7 @@ export default function Hero({ setPage }) {
           fontSize: '10px', letterSpacing: '.3em', textTransform: 'uppercase',
           color: 'rgba(255,255,255,.38)', marginBottom: '1rem',
         }}>
-          Dakar, Sénégal — SS 2025
+          Dakar, Sénégal — SS 2026
         </p>
 
         <h1 style={{

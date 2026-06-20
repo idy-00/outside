@@ -4,11 +4,13 @@ import { CartProvider } from './context/CartContext'
 import { ProductsProvider } from './context/ProductsContext'
 import Nav        from './components/Nav'
 import CartDrawer from './components/CartDrawer'
+import WhatsAppFloat from './components/WhatsAppFloat'
 import Hero       from './sections/Hero'
 import Manifesto  from './sections/Manifesto'
 import Gallery    from './sections/Gallery'
 import BestSellers from './sections/BestSellers'
 import Process    from './sections/Process'
+import LifestyleTicker from './sections/LifestyleTicker'
 import Footer     from './sections/Footer'
 import ShopPage   from './sections/ShopPage'
 import Admin      from './admin/Admin'
@@ -47,6 +49,7 @@ export default function App() {
       <CartProvider>
         <Nav page={page} setPage={setPage} />
         <CartDrawer />
+        <WhatsAppFloat />
         {page === 'shop' ? (
           <ShopPage setPage={setPage} />
         ) : (
@@ -55,6 +58,7 @@ export default function App() {
             <Manifesto />
             <BestSellers setPage={setPage} />
             <Gallery />
+            <LifestyleTicker />
             <Process />
           </main>
         )}

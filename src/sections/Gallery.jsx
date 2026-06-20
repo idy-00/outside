@@ -31,7 +31,7 @@ export default function Gallery() {
           fontFamily: 'var(--sans)', fontWeight: 300,
           fontSize: '10px', letterSpacing: '.3em', textTransform: 'uppercase',
           color: 'var(--grey)', marginBottom: '.75rem',
-        }}>Sur le terrain · Dakar 2025</p>
+        }}>Sur le terrain · Dakar 2026</p>
         <h2 style={{
           fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 300,
           fontSize: 'clamp(1.7rem, 3.5vw, 2.8rem)', lineHeight: 1.1,
@@ -175,11 +175,19 @@ export default function Gallery() {
       <style>{`
         @media (max-width: 768px) {
           .gallery-row {
-            grid-template-columns: 1fr !important;
             min-height: unset !important;
           }
-          .gallery-row > div:first-child { aspect-ratio: 4/3; min-height: unset; }
-
+          .gallery-row > div:first-child {
+            min-height: 180px;
+          }
+          .gallery-row > div:last-child {
+            padding: 1.5rem 1.25rem !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .gallery-row > div:first-child {
+            min-height: 140px;
+          }
         }
       `}</style>
     </section>

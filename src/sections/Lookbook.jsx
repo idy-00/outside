@@ -43,7 +43,7 @@ export default function Lookbook() {
           fontFamily: 'var(--sans)', fontWeight: 300,
           fontSize: '10px', letterSpacing: '.22em', textTransform: 'uppercase',
           color: 'rgba(255,255,255,.18)',
-        }}>SS 2025</span>
+        }}>SS 2026</span>
       </div>
 
       <div style={{
@@ -93,7 +93,7 @@ export default function Lookbook() {
               fontSize: '10px', letterSpacing: '.25em', textTransform: 'uppercase',
               color: 'rgba(255,255,255,.1)',
             }}>
-              OUTSIDE · DAKAR · SS 2025 · BLAME YOURSELF NOT THE WORLD
+              OUTSIDE · DAKAR · SS 2026 · BLAME YOURSELF NOT THE WORLD
             </span>
           ))}
         </div>

@@ -1,4 +1,4 @@
-const WORDS = ['OUTSIDE™', '—', 'BLAME YOUR SELF NOT THE WORLD', '—', 'DAKAR', '—', 'SS 2025', '—', 'STREETWEAR', '—']
+const WORDS = ['OUTSIDE™', '—', 'BLAME YOUR SELF NOT THE WORLD', '—', 'DAKAR', '—', 'SS 2026', '—', 'STREETWEAR', '—']
 const BAND  = [...WORDS, ...WORDS, ...WORDS, ...WORDS]
 
 export default function Ticker() {

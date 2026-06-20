@@ -145,8 +145,8 @@ export default function AdminPanel({ onLogout }) {
             </svg>
           </button>
           <img src="/images/logo-white.png" style={{ height: 26, opacity: .65 }} alt="OUTSIDE" />
-          <div style={{ width: '1px', height: 18, background: 'rgba(255,255,255,.08)' }} />
-          <span style={{
+          <div className="admin-header-divider" style={{ width: '1px', height: 18, background: 'rgba(255,255,255,.08)' }} />
+          <span className="admin-header-title" style={{
             fontFamily: 'var(--sans)', fontWeight: 300,
             fontSize: '9px', letterSpacing: '.3em', textTransform: 'uppercase',
             color: 'rgba(255,255,255,.2)',
@@ -167,7 +167,8 @@ export default function AdminPanel({ onLogout }) {
             <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
               <path d="M7 1h4v4M11 1L5 7"/><path d="M5 2H2a1 1 0 00-1 1v7a1 1 0 001 1h7a1 1 0 001-1V8"/>
             </svg>
-            Voir le site
+            <span className="admin-header-btn-text">Voir le site</span>
+            <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="admin-header-icon" style={{display:'none'}}><path d="M7 1h4v4M11 1L5 7"/><path d="M5 2H2a1 1 0 00-1 1v7a1 1 0 001 1h7a1 1 0 001-1V8"/></svg>
           </a>
           <button onClick={handleLogout} style={{
             background: 'none', border: '1px solid rgba(255,255,255,.08)',
@@ -178,7 +179,8 @@ export default function AdminPanel({ onLogout }) {
           }}
           onMouseEnter={e => { e.currentTarget.style.color = 'var(--white)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,.25)' }}
           onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,.3)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,.08)' }}>
-            Déconnexion
+            <span className="admin-header-btn-text">Déconnexion</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" style={{flexShrink:0}}><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
           </button>
         </div>
       </header>
@@ -396,20 +398,41 @@ export default function AdminPanel({ onLogout }) {
 
       <style>{`
         .admin-sidebar { background: #0a0a0a; }
+
         @media (max-width: 700px) {
           .admin-burger { display: flex !important; }
+
+          /* logo + titre compressés sur mobile */
+          .admin-header-title { display: none !important; }
+          .admin-header-divider { display: none !important; }
+
+          /* boutons header texte masqué, icône seule */
+          .admin-header-btn-text { display: none !important; }
+          .admin-header-icon { display: block !important; }
+
           .admin-sidebar {
             position: fixed; top: 56px; left: 0; bottom: 0; z-index: 15;
-            transform: translateX(-100%); transition: transform .25s;
+            transform: translateX(-110%); transition: transform .28s cubic-bezier(.4,0,.2,1);
             border-right: 1px solid rgba(255,255,255,.08);
             width: 220px !important;
+            box-shadow: 4px 0 24px rgba(0,0,0,.5);
           }
           .admin-sidebar.open { transform: translateX(0); }
-          .admin-row { grid-template-columns: 48px 1fr !important; }
+
+          /* overlay derrière sidebar */
+          .admin-sidebar.open::before {
+            content: '';
+            position: fixed; inset: 0; left: 220px;
+            background: rgba(0,0,0,.5);
+            z-index: -1;
+          }
+
+          .admin-row { grid-template-columns: 44px 1fr !important; }
           .admin-row > div:last-child { grid-column: 1 / -1; padding-bottom: .5rem; }
           .stats-grid { grid-template-columns: 1fr 1fr !important; }
           .stats-grid-2 { grid-template-columns: 1fr !important; }
         }
+
         @media (max-width: 400px) {
           .stats-grid { grid-template-columns: 1fr !important; }
         }

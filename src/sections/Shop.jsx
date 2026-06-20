@@ -179,7 +179,7 @@ export default function Shop() {
               fontFamily: 'var(--sans)', fontWeight: 300,
               fontSize: '10px', letterSpacing: '.28em', textTransform: 'uppercase',
               color: 'var(--grey)', marginBottom: '.5rem',
-            }}>Collection SS 2025</p>
+            }}>Collection SS 2026</p>
             <h2 style={{
               fontFamily: 'var(--serif)', fontWeight: 300,
               fontStyle: 'italic',
