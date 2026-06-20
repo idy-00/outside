@@ -116,7 +116,7 @@ export default function Gallery() {
         opacity: blockCVis ? 1 : 0,
         transform: blockCVis ? 'none' : 'translateY(24px)',
         transition: 'opacity .7s .08s, transform .7s .08s',
-      }} className="gallery-row">
+      }} className="gallery-row gallery-row-stack">
         <div style={{
           display: 'flex', flexDirection: 'column', justifyContent: 'center',
           padding: 'clamp(2.5rem, 5vw, 5rem) clamp(2rem, 4vw, 4.5rem)',
@@ -183,10 +183,12 @@ export default function Gallery() {
           .gallery-row > div:last-child {
             padding: 1.5rem 1.25rem !important;
           }
-        }
-        @media (max-width: 480px) {
-          .gallery-row > div:first-child {
-            min-height: 140px;
+          .gallery-row-stack {
+            grid-template-columns: 1fr !important;
+          }
+          .gallery-row-stack > div:first-child {
+            aspect-ratio: 4/3;
+            min-height: unset !important;
           }
         }
       `}</style>
