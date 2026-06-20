@@ -38,9 +38,9 @@ function StatCard({ label, value, sub, accent }) {
       display: 'flex', flexDirection: 'column', gap: '.5rem',
     }}>
       <p style={{
-        fontFamily: 'var(--sans)', fontWeight: 300,
-        fontSize: '9px', letterSpacing: '.28em', textTransform: 'uppercase',
-        color: 'rgba(255,255,255,.25)',
+        fontFamily: 'var(--sans)', fontWeight: 400,
+        fontSize: '11px', letterSpacing: '.12em', textTransform: 'uppercase',
+        color: 'rgba(255,255,255,.4)',
       }}>{label}</p>
       <p style={{
         fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 300,
@@ -49,7 +49,7 @@ function StatCard({ label, value, sub, accent }) {
       }}>{value}</p>
       {sub && <p style={{
         fontFamily: 'var(--sans)', fontWeight: 300,
-        fontSize: '11px', color: 'rgba(255,255,255,.25)',
+        fontSize: '12px', color: 'rgba(255,255,255,.35)',
       }}>{sub}</p>}
     </div>
   )
@@ -61,10 +61,11 @@ function ActionBtn({ onClick, label, danger }) {
     <button onClick={onClick} style={{
       background: 'none',
       border: `1px solid ${danger ? 'rgba(192,57,43,.35)' : 'rgba(255,255,255,.1)'}`,
-      color: danger ? '#e05c5c' : 'rgba(255,255,255,.4)',
-      fontFamily: 'var(--sans)', fontWeight: 300,
-      fontSize: '9px', letterSpacing: '.14em', textTransform: 'uppercase',
-      padding: '.4rem .85rem', cursor: 'pointer', whiteSpace: 'nowrap',
+      color: danger ? '#e05c5c' : 'rgba(255,255,255,.5)',
+      fontFamily: 'var(--sans)', fontWeight: 400,
+      fontSize: '11px', letterSpacing: '.08em', textTransform: 'uppercase',
+      padding: '.55rem 1rem', cursor: 'pointer', whiteSpace: 'nowrap',
+      minHeight: 36,
       transition: 'border-color .15s, color .15s',
     }}
     onMouseEnter={e => {
@@ -147,9 +148,9 @@ export default function AdminPanel({ onLogout }) {
           <img src="/images/logo-white.png" style={{ height: 26, opacity: .65 }} alt="OUTSIDE" />
           <div className="admin-header-divider" style={{ width: '1px', height: 18, background: 'rgba(255,255,255,.08)' }} />
           <span className="admin-header-title" style={{
-            fontFamily: 'var(--sans)', fontWeight: 300,
-            fontSize: '9px', letterSpacing: '.3em', textTransform: 'uppercase',
-            color: 'rgba(255,255,255,.2)',
+            fontFamily: 'var(--sans)', fontWeight: 400,
+            fontSize: '11px', letterSpacing: '.2em', textTransform: 'uppercase',
+            color: 'rgba(255,255,255,.4)',
           }}>Administration</span>
         </div>
 
@@ -157,9 +158,9 @@ export default function AdminPanel({ onLogout }) {
           <a href="/" target="_blank" rel="noopener noreferrer" style={{
             display: 'inline-flex', alignItems: 'center', gap: '.35rem',
             background: 'none', border: '1px solid rgba(255,255,255,.08)',
-            color: 'rgba(255,255,255,.3)', fontFamily: 'var(--sans)', fontWeight: 300,
-            fontSize: '9px', letterSpacing: '.15em', textTransform: 'uppercase',
-            padding: '.45rem .9rem', textDecoration: 'none',
+            color: 'rgba(255,255,255,.5)', fontFamily: 'var(--sans)', fontWeight: 400,
+            fontSize: '11px', letterSpacing: '.1em', textTransform: 'uppercase',
+            padding: '.5rem 1rem', textDecoration: 'none',
             transition: 'color .15s, border-color .15s',
           }}
           onMouseEnter={e => { e.currentTarget.style.color = 'var(--white)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,.25)' }}
@@ -172,9 +173,9 @@ export default function AdminPanel({ onLogout }) {
           </a>
           <button onClick={handleLogout} style={{
             background: 'none', border: '1px solid rgba(255,255,255,.08)',
-            color: 'rgba(255,255,255,.3)', fontFamily: 'var(--sans)', fontWeight: 300,
-            fontSize: '9px', letterSpacing: '.15em', textTransform: 'uppercase',
-            padding: '.45rem .9rem', cursor: 'pointer',
+            color: 'rgba(255,255,255,.5)', fontFamily: 'var(--sans)', fontWeight: 400,
+            fontSize: '11px', letterSpacing: '.1em', textTransform: 'uppercase',
+            padding: '.5rem 1rem', cursor: 'pointer',
             transition: 'color .15s, border-color .15s',
           }}
           onMouseEnter={e => { e.currentTarget.style.color = 'var(--white)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,.25)' }}
@@ -199,10 +200,10 @@ export default function AdminPanel({ onLogout }) {
               display: 'block', width: '100%', textAlign: 'left',
               background: view === n.id ? 'rgba(255,255,255,.05)' : 'none',
               border: 'none', borderLeft: view === n.id ? '2px solid rgba(255,255,255,.4)' : '2px solid transparent',
-              color: view === n.id ? 'var(--white)' : 'rgba(255,255,255,.3)',
-              fontFamily: 'var(--sans)', fontWeight: 300,
-              fontSize: '11px', letterSpacing: '.14em', textTransform: 'uppercase',
-              padding: '.75rem 1.5rem', cursor: 'pointer',
+              color: view === n.id ? 'var(--white)' : 'rgba(255,255,255,.45)',
+              fontFamily: 'var(--sans)', fontWeight: 400,
+              fontSize: '12px', letterSpacing: '.1em', textTransform: 'uppercase',
+              padding: '.9rem 1.5rem', cursor: 'pointer',
               transition: 'color .15s, background .15s',
             }}
             onMouseEnter={e => { if (view !== n.id) e.currentTarget.style.color = 'rgba(255,255,255,.6)' }}
@@ -215,8 +216,8 @@ export default function AdminPanel({ onLogout }) {
             <div style={{ height: '1px', background: 'rgba(255,255,255,.05)', marginBottom: '1.25rem' }} />
             <p style={{
               fontFamily: 'var(--sans)', fontWeight: 300,
-              fontSize: '9px', letterSpacing: '.18em', textTransform: 'uppercase',
-              color: 'rgba(255,255,255,.15)', lineHeight: 1.8,
+              fontSize: '11px', letterSpacing: '.1em', textTransform: 'uppercase',
+              color: 'rgba(255,255,255,.3)', lineHeight: 1.8,
             }}>
               {visible.length} articles actifs<br />
               {hidden.length > 0 && `${hidden.length} masqué${hidden.length > 1 ? 's' : ''}`}
@@ -230,7 +231,7 @@ export default function AdminPanel({ onLogout }) {
           {/* ── DASHBOARD ── */}
           {view === 'dashboard' && (
             <div>
-              <p style={{ fontFamily: 'var(--sans)', fontWeight: 300, fontSize: '9px', letterSpacing: '.28em', textTransform: 'uppercase', color: 'rgba(255,255,255,.2)', marginBottom: '.6rem' }}>Vue d'ensemble</p>
+              <p style={{ fontFamily: 'var(--sans)', fontWeight: 300, fontSize: '11px', letterSpacing: '.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,.45)', marginBottom: '.6rem' }}>Vue d'ensemble</p>
               <h2 style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', marginBottom: '2.5rem', lineHeight: 1.1 }}>
                 Tableau de bord
               </h2>
@@ -246,12 +247,12 @@ export default function AdminPanel({ onLogout }) {
               {/* 7 / 30 jours */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1px', background: 'rgba(255,255,255,.06)', marginBottom: '3rem' }} className="stats-grid-2">
                 <div style={{ padding: '1.5rem 1.75rem', background: '#0a0a0a' }}>
-                  <p style={{ fontFamily: 'var(--sans)', fontWeight: 300, fontSize: '9px', letterSpacing: '.28em', textTransform: 'uppercase', color: 'rgba(255,255,255,.2)', marginBottom: '.75rem' }}>7 derniers jours</p>
+                  <p style={{ fontFamily: 'var(--sans)', fontWeight: 300, fontSize: '11px', letterSpacing: '.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,.45)', marginBottom: '.75rem' }}>7 derniers jours</p>
                   <p style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 300, fontSize: '2rem', color: 'rgba(37,211,102,.9)' }}>{ordersLast7Days(stats.orders)}</p>
                   <p style={{ fontFamily: 'var(--sans)', fontWeight: 300, fontSize: '11px', color: 'rgba(255,255,255,.2)', marginTop: '.3rem' }}>commandes</p>
                 </div>
                 <div style={{ padding: '1.5rem 1.75rem', background: '#0a0a0a' }}>
-                  <p style={{ fontFamily: 'var(--sans)', fontWeight: 300, fontSize: '9px', letterSpacing: '.28em', textTransform: 'uppercase', color: 'rgba(255,255,255,.2)', marginBottom: '.75rem' }}>30 derniers jours</p>
+                  <p style={{ fontFamily: 'var(--sans)', fontWeight: 300, fontSize: '11px', letterSpacing: '.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,.45)', marginBottom: '.75rem' }}>30 derniers jours</p>
                   <p style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 300, fontSize: '2rem', color: 'rgba(37,211,102,.9)' }}>{ordersLast30Days(stats.orders)}</p>
                   <p style={{ fontFamily: 'var(--sans)', fontWeight: 300, fontSize: '11px', color: 'rgba(255,255,255,.2)', marginTop: '.3rem' }}>commandes</p>
                 </div>
@@ -260,7 +261,7 @@ export default function AdminPanel({ onLogout }) {
               {/* top produits */}
               {topProducts.length > 0 && (
                 <div style={{ marginBottom: '3rem' }}>
-                  <p style={{ fontFamily: 'var(--sans)', fontWeight: 300, fontSize: '9px', letterSpacing: '.28em', textTransform: 'uppercase', color: 'rgba(255,255,255,.2)', marginBottom: '1.25rem' }}>Produits les plus ajoutés au panier</p>
+                  <p style={{ fontFamily: 'var(--sans)', fontWeight: 300, fontSize: '11px', letterSpacing: '.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,.45)', marginBottom: '1.25rem' }}>Produits les plus ajoutés au panier</p>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
                     {topProducts.map((p, i) => {
                       const max = topProducts[0].count
@@ -283,7 +284,7 @@ export default function AdminPanel({ onLogout }) {
 
               {/* catalogue rapide */}
               <div style={{ padding: '1.5rem 1.75rem', border: '1px solid rgba(255,255,255,.07)', background: 'rgba(255,255,255,.02)' }}>
-                <p style={{ fontFamily: 'var(--sans)', fontWeight: 300, fontSize: '9px', letterSpacing: '.28em', textTransform: 'uppercase', color: 'rgba(255,255,255,.2)', marginBottom: '.5rem' }}>Valeur catalogue</p>
+                <p style={{ fontFamily: 'var(--sans)', fontWeight: 300, fontSize: '11px', letterSpacing: '.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,.45)', marginBottom: '.5rem' }}>Valeur catalogue</p>
                 <p style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 300, fontSize: '1.6rem' }}>
                   {catalogueValue.toLocaleString('fr')} F CFA
                 </p>
@@ -299,7 +300,7 @@ export default function AdminPanel({ onLogout }) {
             <div>
               <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
                 <div>
-                  <p style={{ fontFamily: 'var(--sans)', fontWeight: 300, fontSize: '9px', letterSpacing: '.28em', textTransform: 'uppercase', color: 'rgba(255,255,255,.2)', marginBottom: '.5rem' }}>Gestion</p>
+                  <p style={{ fontFamily: 'var(--sans)', fontWeight: 300, fontSize: '11px', letterSpacing: '.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,.45)', marginBottom: '.5rem' }}>Gestion</p>
                   <h2 style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(1.4rem, 3vw, 2rem)' }}>
                     Catalogue <span style={{ color: 'rgba(255,255,255,.25)', fontSize: '.75em' }}>({visible.length})</span>
                   </h2>
@@ -330,8 +331,8 @@ export default function AdminPanel({ onLogout }) {
                     <div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '.6rem', flexWrap: 'wrap', marginBottom: '.25rem' }}>
                         <span style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400, fontSize: '.95rem' }}>{p.name}</span>
-                        <span style={{ fontFamily: 'var(--sans)', fontWeight: 300, fontSize: '8px', letterSpacing: '.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,.2)', background: 'rgba(255,255,255,.05)', padding: '2px 6px' }}>{p.category}</span>
-                        {p._hidden && <span style={{ fontFamily: 'var(--sans)', fontSize: '8px', letterSpacing: '.1em', color: '#e05c5c' }}>MASQUÉ</span>}
+                        <span style={{ fontFamily: 'var(--sans)', fontWeight: 400, fontSize: '10px', letterSpacing: '.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,.35)', background: 'rgba(255,255,255,.07)', padding: '3px 7px' }}>{p.category}</span>
+                        {p._hidden && <span style={{ fontFamily: 'var(--sans)', fontWeight: 400, fontSize: '10px', letterSpacing: '.1em', color: '#e05c5c' }}>MASQUÉ</span>}
                       </div>
                       <p style={{ fontFamily: 'var(--sans)', fontWeight: 300, fontSize: '11px', color: 'rgba(255,255,255,.25)' }}>
                         {p.price?.toLocaleString('fr')} F · {p.colors?.length} couleur{p.colors?.length > 1 ? 's' : ''}
@@ -358,7 +359,7 @@ export default function AdminPanel({ onLogout }) {
           {view === 'add' && (
             <div>
               <button onClick={() => setView('list')} style={backBtnStyle}>← Retour</button>
-              <p style={{ fontFamily: 'var(--sans)', fontWeight: 300, fontSize: '9px', letterSpacing: '.28em', textTransform: 'uppercase', color: 'rgba(255,255,255,.2)', marginBottom: '.5rem' }}>Catalogue</p>
+              <p style={{ fontFamily: 'var(--sans)', fontWeight: 300, fontSize: '11px', letterSpacing: '.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,.45)', marginBottom: '.5rem' }}>Catalogue</p>
               <h2 style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(1.4rem, 3vw, 2rem)', marginBottom: '2rem' }}>Nouveau produit</h2>
               <div style={{ maxWidth: 640 }}>
                 <ProductForm onSave={handleSaveNew} onCancel={() => setView('list')} />
@@ -370,7 +371,7 @@ export default function AdminPanel({ onLogout }) {
           {view === 'edit' && editing && (
             <div>
               <button onClick={() => setView('list')} style={backBtnStyle}>← Retour</button>
-              <p style={{ fontFamily: 'var(--sans)', fontWeight: 300, fontSize: '9px', letterSpacing: '.28em', textTransform: 'uppercase', color: 'rgba(255,255,255,.2)', marginBottom: '.5rem' }}>Catalogue</p>
+              <p style={{ fontFamily: 'var(--sans)', fontWeight: 300, fontSize: '11px', letterSpacing: '.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,.45)', marginBottom: '.5rem' }}>Catalogue</p>
               <h2 style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(1.4rem, 3vw, 2rem)', marginBottom: '2rem' }}>Modifier — <em>{editing.name}</em></h2>
               <div style={{ maxWidth: 640 }}>
                 <ProductForm initial={editing} onSave={handleSaveEdit} onCancel={() => setView('list')} />
