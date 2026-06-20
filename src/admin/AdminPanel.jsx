@@ -54,12 +54,23 @@ export default function AdminPanel({ onLogout }) {
             color: 'rgba(255,255,255,.3)',
           }}>Admin</span>
         </div>
-        <button onClick={handleLogout} style={{
-          background: 'none', border: '1px solid rgba(255,255,255,.1)',
-          color: 'rgba(255,255,255,.35)', fontFamily: 'var(--sans)', fontWeight: 300,
-          fontSize: '10px', letterSpacing: '.15em', textTransform: 'uppercase',
-          padding: '.5rem 1rem', cursor: 'pointer',
-        }}>Déconnexion</button>
+        <div style={{ display: 'flex', gap: '.75rem' }}>
+          <a href="/" target="_blank" rel="noopener noreferrer" style={{
+            background: 'none', border: '1px solid rgba(255,255,255,.1)',
+            color: 'rgba(255,255,255,.35)', fontFamily: 'var(--sans)', fontWeight: 300,
+            fontSize: '10px', letterSpacing: '.15em', textTransform: 'uppercase',
+            padding: '.5rem 1rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '.4rem',
+          }}>
+            <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"><path d="M7 1h4v4M11 1L5 7"/><path d="M5 2H2a1 1 0 00-1 1v7a1 1 0 001 1h7a1 1 0 001-1V8"/></svg>
+            Voir le site
+          </a>
+          <button onClick={handleLogout} style={{
+            background: 'none', border: '1px solid rgba(255,255,255,.1)',
+            color: 'rgba(255,255,255,.35)', fontFamily: 'var(--sans)', fontWeight: 300,
+            fontSize: '10px', letterSpacing: '.15em', textTransform: 'uppercase',
+            padding: '.5rem 1rem', cursor: 'pointer',
+          }}>Déconnexion</button>
+        </div>
       </div>
 
       <div style={{ padding: 'clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3rem)' }}>
